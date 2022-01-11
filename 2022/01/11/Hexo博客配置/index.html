@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/index_img/Hexo.jpg">
 <meta property="article:published_time" content="2022-01-11T04:15:43.000Z">
-<meta property="article:modified_time" content="2022-01-11T05:39:23.946Z">
+<meta property="article:modified_time" content="2022-01-11T06:13:59.287Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary_large_image">
@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.6k 字
+      3.7k 字
     </span>
   
 
@@ -241,12 +241,15 @@
             
             <div class="markdown-body">
               <h1 id="Hexo博客配置"><a href="#Hexo博客配置" class="headerlink" title="Hexo博客配置"></a>Hexo博客配置</h1><h2 id="一、Hexo主题美化"><a href="#一、Hexo主题美化" class="headerlink" title="一、Hexo主题美化"></a>一、Hexo主题美化</h2><ol>
-<li><p>进入Hexo中文官网：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/%EF%BC%8C%E5%AE%98%E7%BD%91%E5%BA%95%E9%83%A8%E6%9C%89%E4%B8%BB%E9%A2%98%E9%80%89%E6%8B%A9%EF%BC%8C%E6%9C%AC%E9%A2%98%E4%BB%A5Fluid%E4%B8%BA%E4%BE%8B%EF%BC%8C%E8%BF%9B%E5%85%A5Fluid%E7%9A%84Github%E4%BB%93%E5%BA%93(%E4%BB%93%E5%BA%93%E4%B8%8B%E6%9C%89%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B%EF%BC%8C%E9%A2%84%E8%A7%88%E7%BD%91%E5%9D%80%EF%BC%9Ahttps://hexo.fluid-dev.com/)">https://hexo.io/zh-cn/，官网底部有主题选择，本题以Fluid为例，进入Fluid的Github仓库(仓库下有安装教程，预览网址：https://hexo.fluid-dev.com/)</a></p>
+<li><p>进入Hexo中文官网：<code>https://hexo.io/zh-cn/</code>，官网底部有主题选择，本题以Fluid为例，进入Fluid的Github仓库(仓库下有安装教程)</p>
+<p>预览网址：<code>https://hexo.fluid-dev.com/</code></p>
+<p>demo：<code>https://jythomas.github.io/</code></p>
 </li>
 <li><p>Hexo 5.0.0 版本以上，推荐通过 npm 直接安装，进入博客目录(Blog)执行命令：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs ada">npm install <span class="hljs-comment">--save hexo-theme-fluid</span><br></code></pre></td></tr></table></figure>
 
-<p>然后在博客目录下手动创建 <code>_config.fluid.yml</code>文件，将这个网址：<a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid/blob/master/_config.yml">https://github.com/fluid-dev/hexo-theme-fluid/blob/master/_config.yml</a> 中的代码内容复制到手动创建的<code>_config.fluid.yml</code>文件中</p>
+<p>然后在博客目录下手动创建 <code>_config.fluid.yml</code>文件，将这个网址：<code>https://github.com/fluid-dev/hexo-theme-fluid/blob/master/_config.yml</code></p>
+<p>中的代码内容复制到手动创建的 <code>_config.fluid.yml</code> 文件中</p>
 </li>
 <li><p>指定主题：</p>
 <p>如下修改 Hexo 博客目录中的 <code>_config.yml</code>(注意不是自己手动创建的yml文件)：</p>
@@ -257,10 +260,17 @@
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs axapta">hexo clean<br>hexo s <span class="hljs-meta">#这里好像默认使用的端口号是4000</span><br><br>要想指定端口号可以使用<br>hexo <span class="hljs-keyword">server</span> -p <span class="hljs-number">5000</span> 指定端口号(解决端口被占用的问题)<br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/01/11/Hexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/image-20220111123634657.png" srcset="/img/loading.gif" lazyload alt="image-20220111123634657"></p>
-<h2 id="二、Hexo主题配置"><a href="#二、Hexo主题配置" class="headerlink" title="二、Hexo主题配置"></a>二、Hexo主题配置</h2><p>​        同样的这里以Fluid主题为例，主要的配置还是参照Fluid的官方文档：<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/start/">https://hexo.fluid-dev.com/docs/start/</a>  以及配置指南：  <a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97">https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97</a></p>
+<h2 id="二、Hexo主题配置"><a href="#二、Hexo主题配置" class="headerlink" title="二、Hexo主题配置"></a>二、Hexo主题配置</h2><p>​        同样的这里以Fluid主题为例，主要的配置还是参照Fluid的官方文档：<code>https://hexo.fluid-dev.com/docs/start/</code> </p>
+<div class="code-wrapper"><pre><code class="hljs">    配置指南：``https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97``  
+</code></pre></div>
 <ol>
-<li><h4 id="在配置指南里面的tip的定义要看明白，这说明的是文档下面的配置操作的是什么文件"><a href="#在配置指南里面的tip的定义要看明白，这说明的是文档下面的配置操作的是什么文件" class="headerlink" title="在配置指南里面的tip的定义要看明白，这说明的是文档下面的配置操作的是什么文件"></a>在配置指南里面的tip的定义要看明白，这说明的是文档下面的配置操作的是什么文件</h4><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">TIP<br>致主题的新用户：<br>- 本指南经过数个版本打磨，绝大部分的功能都有详细说明，请仔细阅读，节约自己和他人的时间；<br>- 本指南中提到的：<span class="hljs-string">&quot;博客配置&quot;</span> 指的 Hexo 博客目录下的 `_config.yml`，<span class="hljs-string">&quot;主题配置&quot;</span> 指的是 `theme/fluid/_config.yml` 或者 `_config.fluid.yml` ，注意区分；<br>- 本指南中提到的 `source` 目录都指的是博客目录下的 `source` 文件夹，不推荐修改主题内 `source` 目录；<br>- 每次无论 `hexo g` 或 `hexo s`，都最好先使用 `hexo clean`；<br>- 页面结果以本地 `hexo s` 为准，部署后的异常大部分是缓存原因，在确认没有报错的情况下，等待若干时间后即可正常；<br>- 由于主题的不同版本会存在配置差异，本指南以最新版本为准。<br></code></pre></td></tr></table></figure></li>
-<li><h4 id="页面顶部大图"><a href="#页面顶部大图" class="headerlink" title="页面顶部大图"></a>页面顶部大图</h4><p>主题配置中(_config.fluid.yml文件中)，每个页面都有名为 <code>banner_img</code> 的属性，可以使用本地图片的相对路径，也可以为外站链接，比如指向本地图片：</p>
+<li>在配置指南里面的tip的定义要看明白，这说明的是文档下面的配置操作的是什么文件</li>
+</ol>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">TIP<br>致主题的新用户：<br>- 本指南经过数个版本打磨，绝大部分的功能都有详细说明，请仔细阅读，节约自己和他人的时间；<br>- 本指南中提到的：<span class="hljs-string">&quot;博客配置&quot;</span> 指的 Hexo 博客目录下的 `_config.yml`，<span class="hljs-string">&quot;主题配置&quot;</span> 指的是 `theme/fluid/_config.yml` 或者 `_config.fluid.yml` ，注意区分；<br>- 本指南中提到的 `source` 目录都指的是博客目录下的 `source` 文件夹，不推荐修改主题内 `source` 目录；<br>- 每次无论 `hexo g` 或 `hexo s`，都最好先使用 `hexo clean`；<br>- 页面结果以本地 `hexo s` 为准，部署后的异常大部分是缓存原因，在确认没有报错的情况下，等待若干时间后即可正常；<br>- 由于主题的不同版本会存在配置差异，本指南以最新版本为准。<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>页面顶部大图</p>
+<p> 主题配置中(_config.fluid.yml文件中)，每个页面都有名为 <code>banner_img</code> 的属性，可以使用本地图片的相对路径，也可以为外站链接，比如指向本地图片：</p>
 </li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">banner_img:</span> <span class="hljs-string">/img/bg/example.jpg</span> <br><span class="hljs-comment"># 对应存放在 /source/img/bg/example.jpg，对应的文件夹自行创建，对应上就行</span><br><span class="hljs-comment"># 如果是本地图片，目录文件夹可自定义，但必须在 source 目录下，博客与主题的 source 目录最终会合并，因此优先选择博客的 source。</span><br><span class="hljs-comment"># 图片大小建议压缩到 1MB 以内，否则会严重拖慢页面加载</span><br></code></pre></td></tr></table></figure>
@@ -268,13 +278,15 @@
 
 
 <ol start="3">
-<li><h4 id="页面左上角的博客标题"><a href="#页面左上角的博客标题" class="headerlink" title="页面左上角的博客标题"></a>页面左上角的博客标题</h4><p>默认使用<strong>博客配置</strong>中的 <code>title</code>，这个配置同时控制着网页在浏览器标签中的标题。</p>
+<li><p>页面左上角的博客标题</p>
+<p>默认使用<strong>博客配置</strong>中的 <code>title</code>，这个配置同时控制着网页在浏览器标签中的标题。</p>
 <p>如需单独区别设置，可在<strong>主题配置</strong>中设置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">navbar:</span><br>  <span class="hljs-attr">blog_title:</span> <span class="hljs-string">博客标题</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 <p><img src="/2022/01/11/Hexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/image-20220111124731378.png" srcset="/img/loading.gif" lazyload alt="image-20220111124731378"></p>
 <ol start="4">
-<li><h4 id="Slogan打字机"><a href="#Slogan打字机" class="headerlink" title="Slogan打字机"></a>Slogan打字机</h4><p>首页大图中的标题文字，可在  **主题配置 ** (_config.fluid.yml文件中) 中设定是否开启： </p>
+<li><p>Slogan打字机</p>
+<p>首页大图中的标题文字，可在  **主题配置 ** (_config.fluid.yml文件中) 中设定是否开启： </p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">index:</span><br>  <span class="hljs-attr">slogan:</span><br>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">text:</span> <span class="hljs-string">&quot;睡觉能解决一半的烦恼.&quot;</span><br>    <span class="hljs-attr">api:</span><br>      <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">url:</span> <span class="hljs-string">&quot;https://v1.hitokoto.cn/&quot;</span><br>      <span class="hljs-attr">method:</span> <span class="hljs-string">&quot;GET&quot;</span><br>      <span class="hljs-attr">headers:</span> &#123;&#125;<br>      <span class="hljs-attr">keys:</span> [<span class="hljs-string">&quot;hitokoto&quot;</span>]<br></code></pre></td></tr></table></figure>
 
 <p>如果 <code>text</code> 为空则按<strong>博客配置</strong>的 <code>subtitle</code> 显示。</p>
@@ -300,7 +312,7 @@
 <p><img src="/2022/01/11/Hexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/image-20220111131235024.png" srcset="/img/loading.gif" lazyload alt="image-20220111131235024"></p>
 <p>鼠标放到图片的小图标上，右击鼠标，选择 复制图片到 将图片复制到对应的博客图片文件夹中，这时在将要发布的md文件中显示的是有 ../../ 的一个图片路径，将图片路径删除掉前面的一部分直到保存图片的文件夹，就像上图中的那样格式就可以看见图片在typora中显示出来了，这样操作后的图片在本地预览和发布的时候也能看见图片</p>
 <ol start="3">
-<li>还有一种就是设置配置文件的方式，我试过了好像没啥作用，感兴趣的可以康康这篇的操作：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f72aaad7b852">https://www.jianshu.com/p/f72aaad7b852</a></li>
+<li>还有一种就是设置配置文件的方式，我试过了好像没啥作用，感兴趣的可以康康这篇的操作：<code>https://www.jianshu.com/p/f72aaad7b852</code></li>
 </ol>
 <p>II、设置文章信息</p>
 <p>设置文章的信息可以直接在hexo new命令创建的md文件中配置Front-matter中设置(文件最顶部的那几行小字)</p>
@@ -321,7 +333,7 @@
 <p>在关于页介绍自己的基础信息，可以在<strong>主题配置</strong>中设置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">about:</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">/img/avatar.png</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;Fluid&quot;</span><br>  <span class="hljs-attr">intro:</span> <span class="hljs-string">&quot;An elegant theme for Hexo&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p>到这 一个属于自己的个人博客就差不多做好了 包括了日常的写文章遇到的问题，还想接着美化的话可以自己学学Fluid的官方文章，注意操作哪个文件就行，不难；有帮助到你的话希望可以分享给身边跟多的朋友，有哪里说的不够好的话可以发送邮件到 <a href="mailto:&#49;&#55;&#x34;&#49;&#54;&#56;&#x36;&#x36;&#48;&#57;&#64;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#49;&#55;&#x34;&#49;&#54;&#56;&#x36;&#x36;&#48;&#57;&#64;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;</a> 提出批评意见</p>
+<p>到这 一个属于自己的个人博客就差不多做好了 包括了日常的写文章遇到的问题，还想接着美化的话可以自己学学Fluid的官方文章，注意操作哪个文件就行，不难；有帮助到你的话希望可以分享给身边跟多的朋友，有哪里说的不够好的话可以发送邮件到 <a href="mailto:&#49;&#55;&#x34;&#x31;&#x36;&#56;&#x36;&#54;&#x30;&#x39;&#64;&#x71;&#113;&#46;&#x63;&#111;&#109;">&#49;&#55;&#x34;&#x31;&#x36;&#56;&#x36;&#54;&#x30;&#x39;&#64;&#x71;&#113;&#46;&#x63;&#111;&#109;</a> 提出批评意见</p>
 
             </div>
             <hr>
