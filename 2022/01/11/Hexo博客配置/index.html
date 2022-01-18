@@ -18,21 +18,21 @@
   
     <meta name="description" content="配置Hexo主题、以及如何在Hexo如何发布文章">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客配置">
+<meta property="og:title" content="Hexo博客配置(解决图片显示问题)">
 <meta property="og:url" content="http://example.com/2022/01/11/Hexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Morant&#39;s Blog">
 <meta property="og:description" content="配置Hexo主题、以及如何在Hexo如何发布文章">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/index_img/Hexo.jpg">
 <meta property="article:published_time" content="2022-01-11T04:15:43.000Z">
-<meta property="article:modified_time" content="2022-01-11T06:13:59.287Z">
+<meta property="article:modified_time" content="2022-01-18T16:48:58.162Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/index_img/Hexo.jpg">
   
   
-  <title>Hexo博客配置 - Morant&#39;s Blog</title>
+  <title>Hexo博客配置(解决图片显示问题) - Morant&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -178,7 +178,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hexo博客配置">
+            <span class="h2" id="subtitle" title="Hexo博客配置(解决图片显示问题)">
               
             </span>
 
@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.7k 字
+      3.9k 字
     </span>
   
 
@@ -208,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      31 分钟
+      33 分钟
     </span>
   
 
@@ -237,7 +237,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hexo博客配置</h1>
+            <h1 style="display: none">Hexo博客配置(解决图片显示问题)</h1>
             
             <div class="markdown-body">
               <h1 id="Hexo博客配置"><a href="#Hexo博客配置" class="headerlink" title="Hexo博客配置"></a>Hexo博客配置</h1><h2 id="一、Hexo主题美化"><a href="#一、Hexo主题美化" class="headerlink" title="一、Hexo主题美化"></a>一、Hexo主题美化</h2><ol>
@@ -292,8 +292,7 @@
 <p>如果 <code>text</code> 为空则按<strong>博客配置</strong>的 <code>subtitle</code> 显示。</p>
 </li>
 </ol>
-<h2 id="三、Hexo发布文章"><a href="#三、Hexo发布文章" class="headerlink" title="三、Hexo发布文章"></a>三、Hexo发布文章</h2><p>I、创建文章命令：</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">Hexo <span class="hljs-keyword">new</span> <span class="hljs-type"></span>文章名<br></code></pre></td></tr></table></figure>
+<h2 id="三、Hexo发布文章及图片显示问题"><a href="#三、Hexo发布文章及图片显示问题" class="headerlink" title="三、Hexo发布文章及图片显示问题"></a>三、Hexo发布文章及图片显示问题</h2><h3 id="I、创建文章命令"><a href="#I、创建文章命令" class="headerlink" title="I、创建文章命令"></a>I、创建文章命令</h3><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">Hexo <span class="hljs-keyword">new</span> <span class="hljs-type"></span>文章名<br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/01/11/Hexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/image-20220111130750040.png" srcset="/img/loading.gif" lazyload alt="image-20220111130750040"></p>
 <p>事先说明：在刚开始摸怎么发布文章的时候，如果文章中有图片的话这会是有一个棘手的问题，因为我的文章是在Typora中写好的，然后Typora的图片保存设置如下</p>
@@ -310,12 +309,11 @@
 </li>
 </ol>
 <p><img src="/2022/01/11/Hexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/image-20220111131235024.png" srcset="/img/loading.gif" lazyload alt="image-20220111131235024"></p>
-<p>鼠标放到图片的小图标上，右击鼠标，选择 复制图片到 将图片复制到对应的博客图片文件夹中，这时在将要发布的md文件中显示的是有 ../../ 的一个图片路径，将图片路径删除掉前面的一部分直到保存图片的文件夹，就像上图中的那样格式就可以看见图片在typora中显示出来了，这样操作后的图片在本地预览和发布的时候也能看见图片</p>
+<p>鼠标放到图片的小图标上，右击鼠标，选择 复制图片到 将图片复制到对应的博客图片文件夹中，这时在将要发布的md文件中显示的是有 ../../ 的一个图片路径，将图片路径删除掉前面的一部分直到保存图片的文件夹，就像上图中的那样格式就可以看见图片在typora中显示出来了，这样操作后的图片在本地预览和发布的时候也能看见图片， <strong>最后返回本地写笔记的文档按住ctrl+z回滚 (因为在本地的文档里面你是保存在本地的随着md文件生成的一个md文件夹里面，经过上面的操作之后本地的图片路径会变成博客里面那个存图片的文件夹的路径，ctrl+z是为了不改变本地的文档保存图片路径，我也有点奇怪明明是复制操作咋把本地的图片文件路径给改了==&gt; 实际上是没有改的，图片的确是复制到了博客的图片文件夹下，但是本地的图片链到了博客的文件夹下，就很奇怪，要注意这一点)</strong> 。</p>
 <ol start="3">
 <li>还有一种就是设置配置文件的方式，我试过了好像没啥作用，感兴趣的可以康康这篇的操作：<code>https://www.jianshu.com/p/f72aaad7b852</code></li>
 </ol>
-<p>II、设置文章信息</p>
-<p>设置文章的信息可以直接在hexo new命令创建的md文件中配置Front-matter中设置(文件最顶部的那几行小字)</p>
+<h3 id="II、设置文章信息"><a href="#II、设置文章信息" class="headerlink" title="II、设置文章信息"></a>II、设置文章信息</h3><p>设置文章的信息可以直接在hexo new命令创建的md文件中配置Front-matter中设置(文件最顶部的那几行小字)</p>
 <p>一般的配置信息如下：</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs subunit">title: HTML笔记  #文章的标题<br>date: 2022<span class="hljs-string">-01</span><span class="hljs-string">-10</span> 19:08:58<br><span class="hljs-keyword">tags:</span> HTML  #文章标签<br>index_img: /index_img/HTML5.jpg  #在文章列表中显示的文章图片<br>banner_img: /text_headerImg/TextHeader_img.jpg  #文章详情中显示的顶部图片<br>excerpt: 这是文章简述。 #文章简述，显示在文章列表中<br></code></pre></td></tr></table></figure>
 
@@ -333,7 +331,7 @@
 <p>在关于页介绍自己的基础信息，可以在<strong>主题配置</strong>中设置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">about:</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">/img/avatar.png</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;Fluid&quot;</span><br>  <span class="hljs-attr">intro:</span> <span class="hljs-string">&quot;An elegant theme for Hexo&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p>到这 一个属于自己的个人博客就差不多做好了 包括了日常的写文章遇到的问题，还想接着美化的话可以自己学学Fluid的官方文章，注意操作哪个文件就行，不难；有帮助到你的话希望可以分享给身边跟多的朋友，有哪里说的不够好的话可以发送邮件到 <a href="mailto:&#49;&#x37;&#52;&#x31;&#54;&#x38;&#x36;&#54;&#48;&#57;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#109;">&#49;&#x37;&#52;&#x31;&#54;&#x38;&#x36;&#54;&#48;&#57;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#109;</a> 提出批评意见</p>
+<p>到这 一个属于自己的个人博客就差不多做好了 包括了日常的写文章遇到的问题，还想接着美化的话可以自己学学Fluid的官方文章，注意操作哪个文件就行，不难；有帮助到你的话希望可以分享给身边跟多的朋友，有哪里说的不够好的话可以发送邮件到 <a href="mailto:&#49;&#55;&#52;&#x31;&#54;&#x38;&#54;&#x36;&#x30;&#x39;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109;">&#49;&#55;&#52;&#x31;&#54;&#x38;&#54;&#x36;&#x30;&#x39;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109;</a> 提出批评意见</p>
 
             </div>
             <hr>

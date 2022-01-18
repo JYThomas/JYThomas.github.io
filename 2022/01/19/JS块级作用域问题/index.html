@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/websiteAvatar/blackcat.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JS块级作用域问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS块级作用域问题">
+<meta property="og:url" content="http://example.com/2022/01/19/JS%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Morant&#39;s Blog">
+<meta property="og:description" content="JS块级作用域问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/index_img/JS.jpg">
+<meta property="article:published_time" content="2022-01-18T16:15:50.000Z">
+<meta property="article:modified_time" content="2022-01-18T16:17:30.505Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/index_img/JS.jpg">
+  
+  
+  <title>JS块级作用域问题 - Morant&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MorantJY&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/text_headerImg/TextHeader_img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS块级作用域问题">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-19 00:15" pubdate>
+        2022年1月19日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS块级作用域问题</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Javascript有关块级作用域的问题"><a href="#Javascript有关块级作用域的问题" class="headerlink" title="Javascript有关块级作用域的问题"></a>Javascript有关块级作用域的问题</h1><h2 id="一、块作用域"><a href="#一、块作用域" class="headerlink" title="一、块作用域 { }"></a>一、块作用域 { }</h2><ol>
+<li><p>JS中作用域有：全局作用域、函数作用域。没有块作用域的概念。ECMAScript 6(简称ES6)中新增了块级作用域。<br>块作用域由 { } 包括，if语句和for语句里面的{ }也属于块作用域。</p>
+</li>
+<li><p>在javascript里是没有块级作用域的，而ES6添加了块级作用域。在ES6(ECMAScript6)之前的JS版本中没有块级作用域会出现以下问题：</p>
+<p>(1) if 和 for语句中定义的变量泄露变成全局变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;=<span class="hljs-number">5</span>;i++)&#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;hello&quot;</span>);<br>&#125;<br><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">//6,记到6循环条件不通过</span><br></code></pre></td></tr></table></figure>
+
+<p>(2) 内层变量可能会覆盖外层变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> temp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><span class="hljs-function"><span class="hljs-keyword">function</span>  <span class="hljs-title">f</span>(<span class="hljs-params"></span>)</span>&#123;<br>     <span class="hljs-built_in">console</span>.log(temp);<br>     <span class="hljs-keyword">if</span>(<span class="hljs-literal">false</span>)&#123;<br>         <span class="hljs-keyword">var</span> temp = <span class="hljs-string">&quot;hello&quot;</span>;<br>    &#125;<br>&#125;<br>f(); <span class="hljs-comment">//undefined</span><br><br>==========================================<br>    <br><span class="hljs-comment">//上面的代码等价于下面的代码</span><br><span class="hljs-keyword">var</span> temp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><span class="hljs-function"><span class="hljs-keyword">function</span>  <span class="hljs-title">f</span>(<span class="hljs-params"></span>)</span>&#123;<br>     <span class="hljs-built_in">console</span>.log(temp);<br>     <span class="hljs-keyword">var</span> temp = <span class="hljs-string">&quot;hello&quot;</span>; <br>     <span class="hljs-comment">//var定义的变量在if中没有块级作用域的概念，从而泄露成函数作用域中的一个变量</span><br>&#125;<br>f(); <span class="hljs-comment">//undefined</span><br><br>==========================================<br>    <br><span class="hljs-comment">//上面的代码等价于下面的代码,变量将会 提升 到作用域的顶端去执行变量的定义，</span><br><span class="hljs-comment">//所以函数输出的是undefined代表的是temp变量的值是undefined，而不是理解成temp变量未定义。</span><br><span class="hljs-keyword">var</span> temp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><span class="hljs-function"><span class="hljs-keyword">function</span>  <span class="hljs-title">f</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> temp;<br>    <span class="hljs-built_in">console</span>.log(temp);<br>    temp = <span class="hljs-string">&quot;hello&quot;</span>; <br>&#125;<br>f(); <span class="hljs-comment">//undefined</span><br></code></pre></td></tr></table></figure></li>
+<li><p>在ES6引入块级作用域之前的版本中，要想实现块级作用域的办法是<strong>立即执行函数</strong>。立即执行匿名函数的目的是建立一个块级作用域。ES6以前变量的作用域是函数范围，有时在函数内局部需要一些临时变量，因为没有块级作用域，所以就会将局部代码封装到IIEF（立即执行函数）中，这样达到了想要的效果。临时变量被封装在IIFE中，就不会污染上层函数(var 定义的变量泄露到函数作用域中，造成污染)；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//立即执行函数 达到了块级作用域的效果</span><br>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-keyword">var</span> temp = <span class="hljs-string">&quot;hello world&quot;</span>;<br>&#125;());<br><span class="hljs-built_in">console</span>.log(temp);<span class="hljs-comment">// 报错：Uncaught ReferenceError: temp is not defined</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="二、立即执行函数"><a href="#二、立即执行函数" class="headerlink" title="二、立即执行函数"></a>二、立即执行函数</h2><ol>
+<li><p>立即执行函数模式是一种语法，可以让你的函数在定义后立即被执行。</p>
+</li>
+<li><p>立即执行函数的组成</p>
+<ul>
+<li>定义一个函数</li>
+<li>将整个函数包裹在一对括号 ‘()’ 中<br>将函数声明转换为表达式</li>
+<li>在结尾加上一对括号<br>让函数立即被执行</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Hello&quot;</span>);<br>&#125;)()<br><br><span class="hljs-comment">//像其它任何函数一样，一个立即执行函数也能返回值并且可以赋值给其它变量</span><br><span class="hljs-keyword">var</span> num = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">4</span><br>&#125;)()<br><span class="hljs-built_in">console</span>.log(num); <span class="hljs-comment">//4</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>作用：</p>
+<p>页面加载完成后只执行一次的设置函数。</p>
+<p>将设置函数中的变量包裹在局部作用域中，不会泄露成全局变量。</p>
+</li>
+</ol>
+<h2 id="三、js中的变量提升和函数提升"><a href="#三、js中的变量提升和函数提升" class="headerlink" title="三、js中的变量提升和函数提升"></a>三、js中的变量提升和函数提升</h2><p>引擎会在解释JavaScript代码之前首先对齐进行编译，编译过程中的一部分工作就是找到所有的声明，并用合适的作用域将他们关联起来，这也正是词法作用域的核心内容。</p>
+<p>☆☆☆☆☆简单说就是 在js代码执行前引擎会先进行预编译，<strong>预编译期间会将变量声明与函数声明提升至其对应作用域的最顶端</strong>。举例来说就是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(a);<br><span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>;<br><br><span class="hljs-comment">//预编译后的代码结构可以看做如下:</span><br><span class="hljs-keyword">var</span> a; <span class="hljs-comment">// 将变量a的声明提升至最顶端，赋值逻辑不提升。</span><br><span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// undefined</span><br>a = <span class="hljs-number">3</span>; <span class="hljs-comment">// 代码执行到原位置即执行原赋值逻辑</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="一-变量提升"><a href="#一-变量提升" class="headerlink" title="(一) 变量提升"></a>(一) 变量提升</h4><p>通常JS引擎会在正式执行之前先进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端，然后进行接下来的处理。(注：当前流行的JS引擎大都对源码进行了编译，由于引擎的不同，编译形式也会有所差异，这里说的预编译和提升其实是抽象出来的、易于理解的概念)</p>
+<p>(1)变量提升示例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-built_in">console</span>.log(number);<br>	<span class="hljs-keyword">var</span> number = <span class="hljs-number">10</span>;<br>&#125;<br><br>output(); <span class="hljs-comment">//undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>预编译的代码逻辑为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> number;<br>	<span class="hljs-built_in">console</span>.log(number);<br>	number = <span class="hljs-number">10</span>;<br>&#125;<br>output(); <span class="hljs-comment">//number值为undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>(2)<strong>JS没有块级作用域最直观的例子</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-keyword">var</span> number = <span class="hljs-number">10</span>;<br>	&#123;<br>		<span class="hljs-keyword">var</span> number = <span class="hljs-number">20</span>;<br>	&#125;<br>	<span class="hljs-built_in">console</span>.log(number);<br>&#125;<br>output(); <span class="hljs-comment">//20</span><br></code></pre></td></tr></table></figure>
+
+<p>预编译的代码逻辑为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-keyword">var</span> number = <span class="hljs-number">10</span>;<br>	<span class="hljs-keyword">var</span> number = <span class="hljs-number">20</span>; <span class="hljs-comment">//变量覆盖</span><br>	<span class="hljs-built_in">console</span>.log(number);<br>&#125;<br>output(); <span class="hljs-comment">//20</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="二-函数提升"><a href="#二-函数提升" class="headerlink" title="(二) 函数提升"></a>(二) 函数提升</h4><ol>
+<li>函数可以在声明之前就调用(但是在做任何开发之前作为一名合格的程序员要做的是先定义后使用)，其实引擎是把函数声明整个地提升到了当前作用域的顶部</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	foo();<br>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span>);<br>	&#125;<br>&#125;<br><br>output(); <span class="hljs-comment">//10</span><br></code></pre></td></tr></table></figure>
+
+<p>预编译后的逻辑为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//函数整体被提升</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span>);<br>	&#125;	<br>	foo();<br>&#125;<br>output(); <span class="hljs-comment">//10</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>如果在同一个作用域中存在多个同名函数声明，后面出现的将会覆盖前面的函数声明：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	foo();<br>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span>);<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-number">100</span>);<br>	&#125;<br>&#125;<br>output(); <span class="hljs-comment">//100</span><br></code></pre></td></tr></table></figure>
+
+<p>预编译后的逻辑为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span>);<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123; <span class="hljs-comment">//函数定义覆盖</span><br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-number">100</span>);<br>	&#125;<br>	foo();<br>&#125;<br>output(); <span class="hljs-comment">//100</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>函数提升优先级高于变量提升</strong></p>
+<p>(1)当函数声明遇到函数表达式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hoistFunction</span>(<span class="hljs-params"></span>) </span>&#123;<br>    foo(); <span class="hljs-comment">// 2</span><br><br>    <span class="hljs-keyword">var</span> foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br>    &#125;;<br><br>    foo(); <span class="hljs-comment">// 1</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>    &#125;<br><br>    foo(); <span class="hljs-comment">// 1</span><br>&#125;<br><br>hoistFunction();<br></code></pre></td></tr></table></figure>
+
+<p>预编译后的逻辑为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hoistFunction</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;  <span class="hljs-comment">//函数提升优先级最高，其次到 函数表达式 和 变量</span><br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);<br>    &#125;<br>    <span class="hljs-keyword">var</span> foo <span class="hljs-comment">//函数表达式看做变量提升</span><br>    <br>    foo(); <span class="hljs-comment">// 2</span><br>    foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br>    &#125;;<br>    foo(); <span class="hljs-comment">// 1</span><br>    foo(); <span class="hljs-comment">// 1</span><br>&#125;<br><br>hoistFunction();<br></code></pre></td></tr></table></figure>
+
+<p>上面的例子可以知道，函数hoistFunction存在变量提升和函数提升，首先进行的是foo函数提升，然后再是函数表达式foo看做是变量提升。函数提升<strong>只会提升函数声明</strong>而<strong>不会提升函数表达式</strong>（函数表达式就可以看作成变量提升）。</p>
+<p><strong>函数提升优先级最高(提升的是函数声明，首先把函数声明放到作用域的顶头)，其次到函数表达式和变量(提升变量的声明，赋值逻辑不会提升)。</strong></p>
+</li>
+</ol>
+<h2 id="四、var、let、const的区别"><a href="#四、var、let、const的区别" class="headerlink" title="四、var、let、const的区别"></a>四、var、let、const的区别</h2><p>有了上面变量和函数提升的基础，可以更好地理解var、let、const的区别。<code>ES6</code>新增了<code>let</code>和<code>const</code>关键字，使得<code>js</code>也有了“块”级作用域，而且使用<code>let</code>和<code>const</code>声明的变量和函数是不存在提升现象的(老老实实在{ }里面待着)，比较有利于我们养成良好的编程习惯。</p>
+<ol>
+<li><p>var定义的变量，没有块的概念，可以跨块访问, 不能跨函数访问，<strong>有变量提升</strong>。</p>
+</li>
+<li><p>let定义的变量，只能在块作用域里访问，不能跨块访问，也不能跨函数访问，<strong>无变量提升</strong>，不可以重复声明。</p>
+</li>
+<li><p>const用来定义常量，使用时必须初始化(即必须赋值)，只能在块作用域里访问，而且不能修改，<strong>无变量提升</strong>，不可以重复声明。注意：const常量，指的是常量对应的内存地址不得改变，而不是对应的值不得改变，所有把应用类型的数据设置为常量，其内部的值是可以改变的，例如：const a={}; a.b=13; 不会报错</p>
+</li>
+</ol>
+<h4 id="var："><a href="#var：" class="headerlink" title="var："></a>var：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-built_in">console</span>.log(number);<br>	<span class="hljs-keyword">var</span> number = <span class="hljs-number">10</span>;<br>&#125;<br>output(); <span class="hljs-comment">//undefined</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="let："><a href="#let：" class="headerlink" title="let："></a>let：</h4><p>只在自己所处的块级作用域生效，且没有变量提升</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> number = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>)&#123;<br>	<span class="hljs-keyword">let</span> Num1 = <span class="hljs-number">100</span>; <span class="hljs-comment">//只在自己所处的块级作用域生效</span><br>&#125;<br><span class="hljs-built_in">console</span>.log(Num1); <span class="hljs-comment">//Uncaught ReferenceError: Num1 is not defined</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-built_in">console</span>.log(number);<br>	<span class="hljs-keyword">let</span> number = <span class="hljs-number">10</span>;<br>&#125;<br>output(); <span class="hljs-comment">//Uncaught ReferenceError: Cannot access &#x27;number&#x27; before initialization(不能在初始化之前使用)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="const："><a href="#const：" class="headerlink" title="const："></a>const：</h4><p>const 与 let 的使用规范一样，与之不同的是：const 声明的是一个常量，且声明完后立刻赋值，否则会报错。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-keyword">const</span> PI;<br>	PI = <span class="hljs-number">3.14</span>;<br>	<span class="hljs-built_in">console</span>.log(PI);<br>&#125;<br>output(); <span class="hljs-comment">//Uncaught SyntaxError: Missing initializer in const declaration</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>Summary：变量、函数先定义后使用；避免定义相同的变量名</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Javascript/">Javascript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/19/Css%E8%A1%8C%E5%AE%BD%E4%B8%8E%E6%B8%85%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Css行宽与清理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/18/JavaScript%E5%9F%BA%E7%A1%80/">
+                        <span class="hidden-mobile">JavaScript基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
