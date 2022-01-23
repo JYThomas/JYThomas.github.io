@@ -1,0 +1,473 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/websiteAvatar/blackcat.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Hexo博客访问速度优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo访问优化">
+<meta property="og:url" content="http://example.com/2022/01/22/Hexo%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Morant&#39;s Blog">
+<meta property="og:description" content="Hexo博客访问速度优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/index_img/Hexo.jpg">
+<meta property="article:published_time" content="2022-01-22T14:12:21.000Z">
+<meta property="article:modified_time" content="2022-01-22T14:42:56.663Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/index_img/Hexo.jpg">
+  
+  
+  <title>Hexo访问优化 - Morant&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MorantJY&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/text_headerImg/TextHeader_img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Hexo访问优化">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-22 22:12" pubdate>
+        2022年1月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Hexo访问优化</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Hexo博客访问优化"><a href="#Hexo博客访问优化" class="headerlink" title="Hexo博客访问优化"></a>Hexo博客访问优化</h1><p>之前发现在网络号的情况访问博客的时候随着图片以及文章的增加，访问速度似乎出现了变慢的情况，甚至访问的时候首页大图加载还出现了需要短暂等待才能加载完成的情况。解决这种问题可以通过gulp插件来对博客所涉及的html、css以及js文件进行压缩，以提升网站性能。</p>
+<h2 id="一、安装依赖"><a href="#一、安装依赖" class="headerlink" title="一、安装依赖"></a>一、安装依赖</h2><p>进入博客根目录打开命令行输入下面的命令</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> gulp<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、安装模块"><a href="#二、安装模块" class="headerlink" title="二、安装模块"></a>二、安装模块</h2><p>要实现gulp压缩需要安装以下五个模块：</p>
+<ul>
+<li><p>gulp-htmlclean // 清理html</p>
+</li>
+<li><p>gulp-htmlmin // 压缩html</p>
+</li>
+<li><p>gulp-minify-css // 压缩css</p>
+</li>
+<li><p>gulp-uglify // 混淆js</p>
+</li>
+<li><p>gulp-imagemin // 压缩图片</p>
+</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm install gulp-htmlclean gulp-htmlmin gulp-minify-css gulp-uglify gulp-imagemin <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、博客的根目录下创建gulpfile-js"><a href="#三、博客的根目录下创建gulpfile-js" class="headerlink" title="三、博客的根目录下创建gulpfile.js"></a>三、博客的根目录下创建gulpfile.js</h2><p>在博客根目录下创建gulpfile.js文件，内容为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gulp&#x27;</span>);<br><span class="hljs-keyword">var</span> minifycss = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gulp-minify-css&#x27;</span>);<br><span class="hljs-keyword">var</span> uglify = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gulp-uglify&#x27;</span>);<br><span class="hljs-keyword">var</span> htmlmin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gulp-htmlmin&#x27;</span>);<br><span class="hljs-keyword">var</span> htmlclean = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gulp-htmlclean&#x27;</span>);<br><span class="hljs-keyword">var</span> imagemin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;gulp-imagemin&#x27;</span>);<br><br><span class="hljs-comment">// 压缩html</span><br>gulp.task(<span class="hljs-string">&#x27;minify-html&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">&#x27;./public/**/*.html&#x27;</span>)<br>        .pipe(htmlclean())<br>        .pipe(htmlmin(&#123;<br>            <span class="hljs-attr">removeComments</span>: <span class="hljs-literal">true</span>,<br>            <span class="hljs-attr">minifyJS</span>: <span class="hljs-literal">true</span>,<br>            <span class="hljs-attr">minifyCSS</span>: <span class="hljs-literal">true</span>,<br>            <span class="hljs-attr">minifyURLs</span>: <span class="hljs-literal">true</span>,<br>        &#125;))<br>        .pipe(gulp.dest(<span class="hljs-string">&#x27;./public&#x27;</span>))<br>&#125;);<br><span class="hljs-comment">// 压缩css</span><br>gulp.task(<span class="hljs-string">&#x27;minify-css&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">&#x27;./public/**/*.css&#x27;</span>)<br>        .pipe(minifycss(&#123;<br>            <span class="hljs-attr">compatibility</span>: <span class="hljs-string">&#x27;ie8&#x27;</span><br>        &#125;))<br>        .pipe(gulp.dest(<span class="hljs-string">&#x27;./public&#x27;</span>));<br>&#125;);<br><span class="hljs-comment">// 压缩js</span><br>gulp.task(<span class="hljs-string">&#x27;minify-js&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">&#x27;./public/js/**/*.js&#x27;</span>)<br>        .pipe(uglify())<br>        .pipe(gulp.dest(<span class="hljs-string">&#x27;./public&#x27;</span>));<br>&#125;);<br><span class="hljs-comment">// 压缩图片</span><br>gulp.task(<span class="hljs-string">&#x27;minify-images&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">&#x27;./public/images/**/*.*&#x27;</span>)<br>        .pipe(imagemin(<br>        [imagemin.gifsicle(&#123;<span class="hljs-string">&#x27;optimizationLevel&#x27;</span>: <span class="hljs-number">3</span>&#125;), <br>        imagemin.jpegtran(&#123;<span class="hljs-string">&#x27;progressive&#x27;</span>: <span class="hljs-literal">true</span>&#125;), <br>        imagemin.optipng(&#123;<span class="hljs-string">&#x27;optimizationLevel&#x27;</span>: <span class="hljs-number">7</span>&#125;), <br>        imagemin.svgo()],<br>        &#123;<span class="hljs-string">&#x27;verbose&#x27;</span>: <span class="hljs-literal">true</span>&#125;))<br>        .pipe(gulp.dest(<span class="hljs-string">&#x27;./public/images&#x27;</span>))<br>&#125;);<br><span class="hljs-comment">// 默认任务</span><br>gulp.task(<span class="hljs-string">&#x27;default&#x27;</span>, [<br>    <span class="hljs-string">&#x27;minify-html&#x27;</span>,<span class="hljs-string">&#x27;minify-css&#x27;</span>,<span class="hljs-string">&#x27;minify-js&#x27;</span>,<span class="hljs-string">&#x27;minify-images&#x27;</span><br>]);<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="四、依次执行压缩及部署"><a href="#四、依次执行压缩及部署" class="headerlink" title="四、依次执行压缩及部署"></a>四、依次执行压缩及部署</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">hexo clean<br>hexo g <span class="hljs-meta">&amp;&amp; gulp <span class="hljs-comment">//生成静态页面之后进行静态资源压缩</span></span><br>hexo d<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="五、遇到的问题"><a href="#五、遇到的问题" class="headerlink" title="五、遇到的问题"></a>五、遇到的问题</h2><p>在网上找到优化博客的教程之后，有很多的安装gulp方式都是全局安装</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> gulp -g<br></code></pre></td></tr></table></figure>
+
+<p>但是这样子安装在我这发现当使用gulp命令压缩静态资源的时候出现报错，这个时候安装gulp就不要全局安装，进入博客的根目录下打开命令行，不执行全局安装-g即可。最后博客的访问速度有少些提升(测试的时候网络有点不稳定，网络好的时候访问速度应该有一些小的提升)</p>
+<p><img src="/2022/01/22/Hexo%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96/CB%60%25XMA%7DNYVUJA3%7D%5DDQX6L.png" srcset="/img/loading.gif" lazyload alt="img"><br><img src="/2022/01/22/Hexo%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96/Y66UZS%7BTUQVVN0L9EJ$LM$Q.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/22/JS-DOM/">
+                        <span class="hidden-mobile">JS_DOM</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
