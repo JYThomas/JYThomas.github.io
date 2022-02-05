@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/websiteAvatar/blackcat.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Javascript事件冒泡与事件委托的个人理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript_事件冒泡与事件委托">
+<meta property="og:url" content="http://example.com/2022/02/05/Javascript-%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/index.html">
+<meta property="og:site_name" content="Morant&#39;s Blog">
+<meta property="og:description" content="Javascript事件冒泡与事件委托的个人理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/index_img/JS.jpg">
+<meta property="article:published_time" content="2022-02-05T03:00:01.000Z">
+<meta property="article:modified_time" content="2022-02-05T03:02:41.130Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/index_img/JS.jpg">
+  
+  
+  <title>Javascript_事件冒泡与事件委托 - Morant&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MorantJY&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/text_headerImg/TextHeader_img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Javascript_事件冒泡与事件委托">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-05 11:00" pubdate>
+        2022年2月5日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Javascript_事件冒泡与事件委托</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Javascript事件冒泡与事件委托"><a href="#Javascript事件冒泡与事件委托" class="headerlink" title="Javascript事件冒泡与事件委托"></a>Javascript事件冒泡与事件委托</h1><p>​        用户与网页发生交互的时候会发生事件，这些事件触发了以后并不会简单的结束，还会触发事件流。某个元素被触发事件的时候该元素处于文档之中，单个元素被触发之后处于文档中的其他元素也会被影响。</p>
+<h2 id="一、事件冒泡"><a href="#一、事件冒泡" class="headerlink" title="一、事件冒泡"></a>一、事件冒泡</h2><p>当网页中的元素触发事件之后，会以冒泡的形式从底层向顶层传播</p>
+<h2 id="二、事件捕获"><a href="#二、事件捕获" class="headerlink" title="二、事件捕获"></a>二、事件捕获</h2><p>网页中的元素触发事件之后，目标元素不会马上被触发，而是由顶层向底层逐步捕获目标元素</p>
+<h2 id="三、DOM事件流"><a href="#三、DOM事件流" class="headerlink" title="三、DOM事件流"></a>三、DOM事件流</h2><p>在DOM2中规定，事件流会有三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段</p>
+<p><img src="/2022/02/05/Javascript-%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/image-20220204173631043.png" srcset="/img/loading.gif" lazyload alt="image-20220204173631043"></p>
+<h2 id="四、事件处理程序"><a href="#四、事件处理程序" class="headerlink" title="四、事件处理程序"></a>四、事件处理程序</h2><p>​        事件处理程序是当事件触发时所要作出什么反应的程序函数，可以通过不同的方式进行事件绑定。(写好一个函数，当什么元素触发什么事件的时候将写好的函数给到对应的事件处理属性）。分为 <strong>HTML事件处理程序</strong> 、<strong>DOM0级事件处理程序</strong> 、 <strong>DOM2级事件处理程序</strong> .</p>
+<p>​        <strong>不同的事件处理程序使用的事件流顺序不同</strong> ，HTML事件处理程序与DOM0级事件处理程序都是采用事件冒泡、DOM2可以指定使用哪种事件流处理方式(默认也是事件冒泡方式) </p>
+<p>例如下面的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;grandmother&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 200px; width: 200px; border: 2px solid black;&quot;</span>&gt;</span>grandmother<br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mother&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 120px; width: 120px; border: 2px solid black;&quot;</span>&gt;</span>mother<br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;son&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 80px; width: 80px; border: 2px solid black;&quot;</span>&gt;</span>son<br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;baby&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 50px; width: 50px; border: 2px solid black;&quot;</span>&gt;</span>baby<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">        <span class="hljs-keyword">var</span> grandmother = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;grandmother&quot;</span>)[<span class="hljs-number">0</span>];</span><br><span class="javascript">        <span class="hljs-keyword">var</span> mother = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;mother&quot;</span>)[<span class="hljs-number">0</span>];</span><br><span class="javascript">        <span class="hljs-keyword">var</span> son = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;son&quot;</span>)[<span class="hljs-number">0</span>];</span><br><span class="javascript">        <span class="hljs-keyword">var</span> baby = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;baby&quot;</span>)[<span class="hljs-number">0</span>];</span><br><span class="javascript"></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayName</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;I am &quot;</span> + <span class="hljs-built_in">this</span>.className);</span><br><span class="javascript">        &#125;</span><br><span class="javascript">        baby.addEventListener(<span class="hljs-string">&quot;click&quot;</span>,sayName,<span class="hljs-literal">false</span>); <span class="hljs-comment">//冒泡</span></span><br><span class="javascript">        son.addEventListener(<span class="hljs-string">&quot;click&quot;</span>,sayName,<span class="hljs-literal">true</span>); <span class="hljs-comment">//捕获</span></span><br><span class="javascript">        mother.addEventListener(<span class="hljs-string">&quot;click&quot;</span>,sayName,<span class="hljs-literal">true</span>); <span class="hljs-comment">//捕获</span></span><br><span class="javascript">        grandmother.onclick = sayName; <span class="hljs-comment">//冒泡</span></span><br><span class="javascript"></span><br><span class="javascript">        <span class="hljs-comment">//点击baby输出 mother、son、baby、grandmother</span></span><br><span class="javascript"></span><br><span class="javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/05/Javascript-%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/image-20220204181207818.png" srcset="/img/loading.gif" lazyload alt="image-20220204181207818"></p>
+<p>​        解释：上面的例子使用了不同的时间处理程序来执行，可以对比出事件捕获与事件冒泡的过程与优先级。从事件流的三个阶段来看，事件捕获是最先的，所以使输出son和mother这两个，而事件捕获是先从外层再到内层，所以先输出mother再输出son；之后到了事件冒泡，所以输出的是baby和grandmother，而事件冒泡是由底层再到外层，所以先输出baby再输出grandmother。</p>
+<p>​        顺序是 <strong>先捕获(先外层再内层)再冒泡(先内层再外层)</strong></p>
+<h2 id="五、事件委托"><a href="#五、事件委托" class="headerlink" title="五、事件委托"></a>五、事件委托</h2><h2 id="（一）、为什么要使用事件委托"><a href="#（一）、为什么要使用事件委托" class="headerlink" title="（一）、为什么要使用事件委托"></a>（一）、为什么要使用事件委托</h2><p>​        要理解事件委托，首先要理解为什么要使用事件委托。因为Javascript在关于性能调优上的直观思想就是减少DOM操作，减少内存开销。比如下面这个例子：</p>
+<p>​        当要实现点击li结点输出结点的文字时，常规思路是使用循环的方式为每个li结点绑定点击事件，然后再输出对应的文字</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>岛田庄司<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>鲇川哲也<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>柯南道尔<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>阿加莎克里斯蒂<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">        <span class="hljs-keyword">var</span> lis = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;li&quot;</span>);</span><br><span class="javascript">        <span class="hljs-comment">//循环绑定事件</span></span><br><span class="javascript">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>;i&lt;lis.length;i++)&#123;</span><br><span class="javascript">            lis[i].onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">                <span class="hljs-built_in">console</span>.log(lis[i].innerHTML);</span><br><span class="javascript">            &#125;</span><br><span class="javascript">        &#125;</span><br><span class="javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2022/02/05/Javascript-%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/image-20220205102324701.png" srcset="/img/loading.gif" lazyload alt="image-20220205102324701"></p>
+<p>上面这种做法为每个li结点都绑定了点击事件，四个li对应着四个不同的function对象(Object类型)，这种情况当然允许这样写代码，但是在li的数目变多的时候，这对页面性能的开销是十分巨大的。为了解决类似问题，引入了事件委托这种操作。</p>
+<h2 id="（二）、什么是事件委托及原理"><a href="#（二）、什么是事件委托及原理" class="headerlink" title="（二）、什么是事件委托及原理"></a>（二）、什么是事件委托及原理</h2><p>​        事件委托的理解是 <strong>本来应该加在子元素身上的事件，我们却把事件加在了其父级身上</strong> .委托父级元素统一处理某一类问题。</p>
+<p>​        原理：理解事件委托涉及 事件冒泡 与 事件对象 的属性target。</p>
+<p>​        有一个问题：子元素的事件添加到了父元素身上，那如何区分事件本来属于哪个子元素呢。这就要用到事件对象event 。事件对象记录着事件发生的所有信息，其中的event.target属性代表真实是哪个DOM结点触发了事件。</p>
+<p>​        将原理整合起来的理解就是： <strong>将各类子元素所涉及的事件利用事件冒泡统一委托给父级元素(集中管理)，然后利用event.target定位具体是哪个子元素触发了事件，然后进行关于该子元素的需要触发对应的事件。</strong></p>
+<h2 id="（三）、事件委托的实现"><a href="#（三）、事件委托的实现" class="headerlink" title="（三）、事件委托的实现"></a>（三）、事件委托的实现</h2><p>​        将上述的 li 例子使用事件委托的方式进行优化如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>岛田庄司<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>鲇川哲也<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>柯南道尔<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>阿加莎克里斯蒂<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">       <span class="hljs-keyword">var</span> ul = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;ul&quot;</span>); <span class="hljs-comment">//获取父级元素</span></span><br><span class="javascript">       <span class="hljs-comment">//为父级元素绑定点击事件，然后赋值事件处理函数</span></span><br><span class="javascript">       ul.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>)</span>&#123;</span><br><span class="javascript">           <span class="hljs-comment">//使用事件对象target属性定位具体点击了谁</span></span><br><span class="javascript">           <span class="hljs-built_in">console</span>.log(event.target.innerHTML);</span><br><span class="javascript">       &#125;</span><br><span class="javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>​        上面使用了事件委托的方式对代码进行了优化，实现同样的功能但是由原来的四个事件绑定减少为一个事件绑定。函数减少了对应的内存占用得到优化。</p>
+<h2 id="（四）、兼容性"><a href="#（四）、兼容性" class="headerlink" title="（四）、兼容性"></a>（四）、兼容性</h2><p>​        Event对象提供了一个属性叫target，可以返回事件的目标节点，我们成为事件源，也就是说，target就可以表示为当前的事件操作的dom。这个是有兼容性的，标准浏览器用event.target，IE浏览器用event.srcElement.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Javascript/">Javascript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/05/Javascript-%E4%BA%8B%E4%BB%B6/">
+                        <span class="hidden-mobile">Javascript_事件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
