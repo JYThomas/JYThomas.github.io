@@ -1,0 +1,508 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/websiteAvatar/blackcat.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="大概复习了HTML、CSS、Javascript之后做的todoList Demo，使用localStorage作为数据存储方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="todo_list开发笔记">
+<meta property="og:url" content="http://example.com/2022/02/10/todo-list%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Morant&#39;s Blog">
+<meta property="og:description" content="大概复习了HTML、CSS、Javascript之后做的todoList Demo，使用localStorage作为数据存储方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/index_img/JS.jpg">
+<meta property="article:published_time" content="2022-02-10T07:08:51.000Z">
+<meta property="article:modified_time" content="2022-02-10T07:12:32.741Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/index_img/JS.jpg">
+  
+  
+  <title>todo_list开发笔记 - Morant&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MorantJY&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/text_headerImg/TextHeader_img.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="todo_list开发笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-10 15:08" pubdate>
+        2022年2月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">todo_list开发笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="todo-list开发笔记"><a href="#todo-list开发笔记" class="headerlink" title="todo_list开发笔记"></a>todo_list开发笔记</h1><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>​        在大学的最后的一个寒假(考上研另说)里重新复习一下前端三件套做的练手Demo，在大致过了一遍《Javascript高级程序设计第三版》之后总感觉和之前读的时候感觉差不多，寒假这次不记得是第几次看了，断断续续没看完的状态。寒假这次重新学的高程三大概过了一下日常开发所要使用的东西，对于闭包、作用域链之类的还没看打算开学再搞。在这次的高程三学习中对于DOM的理解简直是全新体验，以前一直是把DOM看成是getElementById之类的操作，没有理解到DOM的核心思想是将HTML结点看做对象调用方法，将结点当做对象来使用(这点我直接震惊我对DOM的是什么勾八理解)。</p>
+<p>​        这次做的todoList Demo完全使用HTML、CSS、Javascript原生DOM完成。虽然是个简单的东西，但是在做的时候也遇到了很多逻辑上的东西以及一些技术问题。大致来说完成了一个小目标吧。话不多说上才艺</p>
+<p><strong>Github项目地址</strong> ：<a target="_blank" rel="noopener" href="https://github.com/JYThomas/toDoList_Demo">https://github.com/JYThomas/toDoList_Demo</a></p>
+<h2 id="一、Demo预览"><a href="#一、Demo预览" class="headerlink" title="一、Demo预览"></a>一、Demo预览</h2><p><img src="/2022/02/10/todo-list%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/image-20220209160316852.png" srcset="/img/loading.gif" lazyload alt="image-20220209160316852"></p>
+<p><img src="/2022/02/10/todo-list%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/image-20220209160457005.png" srcset="/img/loading.gif" lazyload alt="image-20220209160457005"></p>
+<h2 id="二、遇到的技术问题及解决方法"><a href="#二、遇到的技术问题及解决方法" class="headerlink" title="二、遇到的技术问题及解决方法"></a>二、遇到的技术问题及解决方法</h2><p>这里将从HTML、CSS、Javascript三方面遇到的问题分类讲起</p>
+<h3 id="（一）、HTML"><a href="#（一）、HTML" class="headerlink" title="（一）、HTML"></a>（一）、HTML</h3><p>这方面遇到的问题比较少，基本上就是页面结构。要注意的是外部文件的引入</p>
+<p>1.引入外部CSS文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Morant&#x27;s toDolist<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;./toDo.css&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>2.引入外部JS文件：这里需要特别注意遇到一个问题就是外部JS文件引入的位置应该是位于body标签内部，所有的页面元素后面。刚刚开始放的位置是head标签里面，但是后面在调用JS文件的时候发现函数老是报错，原因文件从上到下编译，JS文件放在head里面的时候 <strong>涉及了DOM操作</strong> ，但是这个时候body里面的页面元素还没有渲染完成，所以获取到的变量时undefined，放在body标签内部，所有的页面元素后面就解决了这个问题。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">&quot;load()&quot;</span>&gt;</span><br>    ..........<br>    <br>    <span class="hljs-comment">&lt;!-- 页面渲染完DOM结点再编译js文件 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./index_toDo.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="（二）、CSS"><a href="#（二）、CSS" class="headerlink" title="（二）、CSS"></a>（二）、CSS</h3><ol>
+<li><p>使用div的时候为其添加 <code>height</code>、<code>width</code> 属性才看得到盒子。盒子元素背景是background-color，color的话是div里面的文字元素的颜色。</p>
+</li>
+<li><p>类 和 id 的css分别是 ‘.’ 和 ‘#’</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.mainContent</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">700px</span>;<br>    <span class="hljs-attribute">height</span>: auto;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;<br>    <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">10px</span> ;<br>    <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">10px</span> ;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">background-color</span>: aquamarine;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-id">#addTodoArea</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">600px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#FFCC99</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>设置某个元素下元素A的样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">li</span>下className为delBtn的元素<br><span class="hljs-selector-tag">li</span> <span class="hljs-selector-class">.delBtn</span>&#123;<br>    <span class="hljs-attribute">float</span>: right;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">3px</span>;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#FFB6C1</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ol start="4">
+<li><p>文字居中、垂直居中、浮动</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-id">#Heading</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span> auto;<br>    <span class="hljs-attribute">text-align</span>: center; //文字居中<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">80px</span>; //垂直居中与<span class="hljs-attribute">height</span>等值<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ol start="5">
+<li><p>随页面调整大小</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.mainContent</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">700px</span>;<br>    <span class="hljs-attribute">height</span>: auto; <span class="hljs-comment">//高度自动调整</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>margin 与 padding</p>
+<p>margin是指从自身边框到另一个容器边框之间的距离，就是容器外距离。（外边距）</p>
+<p>padding是指自身边框到自身内部另一个容器边框之间的距离，就是容器内距离。（内边距）</p>
+<p>调整div里面的其他元素位置用padding，调整div外部盒子与盒子位置关系用margin</p>
+</li>
+</ol>
+<h3 id="（三）、Javascript"><a href="#（三）、Javascript" class="headerlink" title="（三）、Javascript"></a>（三）、Javascript</h3><ol>
+<li><p>全局变量：直接在文档外部定义变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> toDoArr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(); <span class="hljs-comment">//创建全局动态数组</span><br><span class="hljs-keyword">var</span> btn = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;add&quot;</span>);<br><span class="hljs-keyword">var</span> tbx = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;input&quot;</span>);<br><span class="hljs-keyword">var</span> toDo_Ol = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;ol&quot;</span>)[<span class="hljs-number">0</span>]; <span class="hljs-comment">//获取代办列表</span><br><span class="hljs-keyword">var</span> finished_Ol = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;ol&quot;</span>)[<span class="hljs-number">1</span>]; <span class="hljs-comment">//获取已完成列表</span><br><span class="hljs-keyword">var</span> cleanBtn = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;cleanBtn&quot;</span>); <br></code></pre></td></tr></table></figure></li>
+<li><p>ES6局部变量声明：let</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">btn.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> tbxVal = tbx.value; <br>    ....<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>返回字符串某个字符前的字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 过滤li的文字,过滤返回特定字符&#x27;&lt;&#x27;前的文字</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params">str</span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> res = str.split(<span class="hljs-string">&#x27;&lt;&#x27;</span>)[<span class="hljs-number">0</span>];<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>DOM动态结点生成appendChild 及 删除removeChild</p>
+<p>思想是将小的结点挂载到大的结点上 大结点.appendChild(小结点)；大结点.removeChild(小结点);</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 创建列表结点</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createDataLi</span>(<span class="hljs-params">_textVal</span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> node = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;li&quot;</span>); <span class="hljs-comment">//创建li结点</span><br>    <span class="hljs-keyword">let</span> finishedBtn = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;button&quot;</span>);<br>    <span class="hljs-keyword">let</span> deleteBtn = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;button&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> textNode_toDo = <span class="hljs-built_in">document</span>.createTextNode(_textVal); <span class="hljs-comment">//创建text结点</span><br>    <span class="hljs-keyword">let</span> textNode_finished = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">&quot;finished&quot;</span>);<br>    <span class="hljs-keyword">let</span> textNode_del = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">&quot;delete&quot;</span>);<br>    <br>    <span class="hljs-comment">// 添加结点</span><br>    finishedBtn.appendChild(textNode_finished);<br>    deleteBtn.appendChild(textNode_del);<br><br>    <span class="hljs-comment">// 设置样式</span><br>    finishedBtn.className = <span class="hljs-string">&quot;finishedBtn&quot;</span>;<br>    deleteBtn.className = <span class="hljs-string">&quot;delBtn&quot;</span>;<br><br>    <span class="hljs-comment">// 添加结点到li</span><br>    node.appendChild(textNode_toDo);<br>    node.appendChild(deleteBtn);<br>    node.appendChild(finishedBtn);<br><br>    <span class="hljs-comment">// 添加结点到ol</span><br>    toDo_Ol.appendChild(node);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ol start="5">
+<li><p>localStorage的使用(增、查)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//数据存入localStorage</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setData</span>(<span class="hljs-params">_toDoArr</span>)</span>&#123;<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">        只添加一组key-value实现localStorage数据存储覆盖问题</span><br><span class="hljs-comment">        而不是使用多组key-value</span><br><span class="hljs-comment">    */</span><br>    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&quot;todo&quot;</span>,<span class="hljs-built_in">JSON</span>.stringify(_toDoArr)); <br>&#125;<br><br><span class="hljs-comment">//获取localStorage字符串数据并返回</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getData</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;todo&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​        localStorage的key与value不是每个一个数据都用一个键值对，而是只用一个键值对，在代码里面使用JSON.stringify()将对象转为字符串、JSON.parse()将字符串转为对象然后操作对象，避免操作字符串。</p>
+</li>
+</ol>
+<h2 id="三、逻辑问题"><a href="#三、逻辑问题" class="headerlink" title="三、逻辑问题"></a>三、逻辑问题</h2><ol>
+<li><p>数据存储：使用localStorage实现本地存储，页面关闭上次使用仍然存在。将数据获取到之后存放到localStorage存储，然后再从localStorage中获取数据渲染。以localStorage为中介，任何数据存储以及显示都要以localStorage中的数据为准。</p>
+</li>
+<li><p>添加待办：先将待办事项获取到然后存放到localStorage，之后删除页面上的DOM结点，再从localStorage中获取数据，生成结点渲染到页面上，解决li结点重复显示的问题</p>
+</li>
+<li><p>持续数据：当每次关闭或者操作页面的时候都要先从localStorage中获取数据存放到全局变量对象数组中，防止页面刷新或者关闭之后localStorage中的数据被重置</p>
+</li>
+<li><p>结点渲染函数load：在页面每次生成的时候执行load函数加载节点、渲染数据</p>
+</li>
+<li><p><strong>函数封装的思想</strong> ：最大的体会就是每个函数做好自己的事，代码之间的逻辑通过函数的封装提高了程序的可读性，避免在程序流中出现过多高耦合的代码。</p>
+</li>
+<li><p>数据存储：使用localStorage一对键值对，存储的时候存储的是字符串，在操作数据的时候将字符串转换为对象数组对数据进行访问。</p>
+</li>
+<li><p>使用事件委托处理列表点击事件减少DOM操作稍微提高程序性能。</p>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Javascript/">Javascript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/05/Javascript-%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/">
+                        <span class="hidden-mobile">Javascript_事件冒泡与事件委托</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
